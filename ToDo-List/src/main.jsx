@@ -12,7 +12,6 @@ import  Contact  from './pages/Contact.jsx'
 import Menu from './components/Menu.jsx'
 
 
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,7 +29,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Menu></Menu>
     <RouterProvider router={router} />
   </React.StrictMode>,
 )
