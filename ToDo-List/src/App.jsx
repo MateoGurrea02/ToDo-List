@@ -1,13 +1,13 @@
 import './App.css'
-import Lista_todo from './components/Lista_todo'
+
 
 
 function App() {
 
   return (
-    <>
-      <Lista_todo />
-    </>
+    <div>
+      <h1>TODOS</h1>
+    </div>
   )
 }
 
