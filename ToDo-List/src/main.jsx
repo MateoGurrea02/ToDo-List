@@ -10,6 +10,7 @@ import  Home  from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import  Contact  from './pages/Contact.jsx'
 import LoginProvider, { LoginContext } from './contexts/LoginProvider.jsx';
+import ThemeProvider from './contexts/ThemeProvider.jsx';
 
 
 const router = createBrowserRouter([
@@ -32,7 +33,10 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+
   <LoginProvider>
-    <RouterProvider router={router} />
-  </LoginProvider>,
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  </LoginProvider>
 )

@@ -4,9 +4,11 @@ import Menu from "../components/Menu"
 import { useContext } from "react";
 import { LoginContext } from "../contexts/LoginProvider";
 import { useNavigate } from "react-router-dom";
+import { ThemeContext } from "../contexts/ThemeProvider";
 
 export default function Home() {
     const [datosUsuario, setDatosUsuario] = useContext(LoginContext)
+    const [lightTheme, setLightTheme] = useContext(ThemeContext)
     const navegacion = useNavigate()
 
     useEffect(() => {
@@ -16,7 +18,8 @@ export default function Home() {
     }, []) //cuando se carga el componente, verifica que el usuario este loggeado, si no esta se redirige a login
 
     return(
-        <>
+        <>  
+            {console.log(lightTheme)}
             <Menu />
             <Lista_todo />
         </>
