@@ -88,7 +88,7 @@ export default function Lista_todo() {
       </FormControl>
       <div style={{flexDirection:"row", margin:"1em"}}>
         <Stack>
-            <Pagination count={200/cantidadTareas} page={pagActual} rowsPerPage={cantidadTareas} onChange={handleChange} variant="outlined" shape="rounded"  />
+            <Pagination count={Math.round(200/cantidadTareas)} page={pagActual} rowsPerPage={cantidadTareas} onChange={handleChange} variant="outlined" shape="rounded"  />
          </Stack>
       </div>
     </div>
