@@ -1,17 +1,19 @@
 import * as React from 'react';
+import { useContext } from 'react';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { LoginContext } from '../contexts/LoginProvider';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function Copyright(props) {
   return (
@@ -28,15 +30,27 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const [datosUsuario, setDatosUsuario] = useContext(LoginContext)
+  const navegacion = useNavigate()
+
+  useEffect(() => {
+    setDatosUsuario({
+      nombre: "",
+      contraseña: ""
+    })
+  }, [])
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      usuario: data.get('usuario'),
-      contraseña: data.get('contraseña'),
-    });
+    setDatosUsuario({
+      nombre: data.get('usuario'),
+      contraseña: data.get('contraseña')
+    })
   };
-
+  {if (datosUsuario.nombre === "usuario" && datosUsuario.contraseña === "demo"){
+    navegacion("/home")
+  }}
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">

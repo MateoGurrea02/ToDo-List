@@ -13,13 +13,17 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { LoginContext } from '../contexts/LoginProvider';
 
 const pages = ["Home", "Login", "Contact"];
-const urlPages = ['/', '/login', '/contact']
+const urlPages = ['/home', '/login', '/contact']
 const settings = ["Logout"];
 
 function ResponsiveAppBar() {
+  const [datosUsuario, setDatosUsuario] = useContext(LoginContext)
+  const navegacion = useNavigate()
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -37,6 +41,14 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const logOut = () => {
+    setDatosUsuario({
+      nombre: "",
+      contraseña: ""
+    })
+    navegacion("/login")
+  }
 
   return (
     <AppBar position="static">
@@ -119,7 +131,7 @@ function ResponsiveAppBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page, index) => (
-              <Link to={urlPages[index]}>
+              <Link to={urlPages[index]} key={index}>
                 <Button
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
@@ -153,7 +165,7 @@ function ResponsiveAppBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={() => {handleCloseUserMenu(); logOut();}}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
