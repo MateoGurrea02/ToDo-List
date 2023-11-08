@@ -16,6 +16,8 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { LoginContext } from '../contexts/LoginProvider';
+import { Switch } from '@mui/material';
+import { ThemeContext } from '../contexts/ThemeProvider';
 
 const pages = ["Home", "Login", "Contact"];
 const urlPages = ['/home', '/login', '/contact']
@@ -23,6 +25,7 @@ const settings = ["Logout"];
 
 function ResponsiveAppBar() {
   const [datosUsuario, setDatosUsuario] = useContext(LoginContext)
+  const [lightTheme, setLightTheme] = useContext(ThemeContext)
   const navegacion = useNavigate()
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -175,6 +178,7 @@ function ResponsiveAppBar() {
               </MenuItem>
             </Menu>
           </Box>
+          <Switch onClick={() => setLightTheme(!lightTheme)} />
         </Toolbar>
       </Container>
     </AppBar>
