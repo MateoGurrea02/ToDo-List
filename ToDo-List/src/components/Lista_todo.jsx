@@ -1,69 +1,96 @@
 import React, { useEffect, useState } from "react";
-import { Pagination, Button, Skeleton } from "@mui/material";
-import Tarjeta from './Tarjeta'
+import { Pagination, Button, Skeleton, Stack } from "@mui/material";
+import Tarjeta from "./Tarjeta";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
 
-export default function Lista_todo(){
-    const [tareas, setTareas] = useState([])
-    const [cantidadTareas, setCantidadTareas] = useState(5) //por defecto, la lista muestra 5 tareas
-    const [pagActual, setPagActual] = useState(1)
-    const [cargando, setCargando] = useState(true)
-    const url = 'https://jsonplaceholder.typicode.com/todos'
-    
-    useEffect(() => {
-        fetch(url)
-        .then(respuesta => respuesta.json())
-        .then(data => {
-            setTareas(data)
-            setCargando(false)
-        })
-    }, [])
 
-    function handleSelect(e){
-        setCantidadTareas(e.target.value)
-    }
+export default function Lista_todo() {
+  const [tareas, setTareas] = useState([]);
+  const [cantidadTareas, setCantidadTareas] = useState(5); //por defecto, la lista muestra 5 tareas
+  const [pagActual, setPagActual] = useState(1);
+  const [cargando, setCargando] = useState(true);
+  const [open, setOpen] = React.useState(false);
+  const url = "https://jsonplaceholder.typicode.com/todos";
+  const [page, setPage] = React.useState(1);
+  const handleChange = (event, value) => {
+    setPagActual(value)
+  };
 
-    function paginaAnterior(){
-        if (pagActual === 1){
+  useEffect(() => {
+    fetch(url)
+      .then((respuesta) => respuesta.json())
+      .then((data) => {
+        setTareas(data);
+        setCargando(false);
+      });
+  }, []);
 
-        }
-        else{
-            setPagActual(pagActual - 1)
-        }
-    }
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-    function siguientePagina(){
-        if (pagActual === (tareas.length / cantidadTareas)){
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
-        }
-        else{
-            setPagActual(pagActual + 1)
-        }
-    }
+  function handleSelect(e) {
+    setCantidadTareas(e.target.value);
+  }
 
-    return(
-        <>
-            {(cargando) && <Skeleton animation="wave" />}
-            <h1>Tareas</h1>
-            <div>
-                <select name="cantidadTareas" id="" onChange={handleSelect}>
-                    <option value="" disabled selected>Seleccione la cantidad de tareas</option>
+  return (
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      {cargando && <Skeleton animation="wave" />}
+      <h1 style={{margin:"1em"}}>
+        Tareas
+      </h1>
+      <FormControl>
+        <InputLabel id="demo-controlled-open-select-label">
+          Nro. Tareas
+        </InputLabel>
+        <Select
+          labelId="demo-controlled-open-select-label"
+          id="demo-controlled-open-select"
+          open={open}
+          onClose={handleClose}
+          onOpen={handleOpen}
+          label="Nro. Tareas"
+          onChange={handleSelect}
+        >
+          <MenuItem value="">
+            <em>Seleccione la cantidad de tareas</em>
+          </MenuItem>
+          <MenuItem value={"5"}>5</MenuItem>
+          <MenuItem value={"10"}>10</MenuItem>
+          <MenuItem value={"15"}>15</MenuItem>
+          <MenuItem value={"20"}>20</MenuItem>
+          {/* <option value="" disabled selected>Seleccione la cantidad de tareas</option>
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="15">15</option>
-                    <option value="20">20</option>
-                </select>
-                {tareas.slice((pagActual - 1) * cantidadTareas, (cantidadTareas * pagActual)).map((item, index) => {
-                    return <Tarjeta titulo={item.title} estado={item.completed ? "Completado" : "Incompleto"}></Tarjeta>
-                })}
-                
-            </div>
-            <Button variant="outlined" onClick={paginaAnterior}>Pagina anterior</Button>
-            <Button variant="outlined" disabled>
-            {pagActual}
-            </Button>
-            <Button variant="outlined" href="#outlined-buttons" onClick={siguientePagina}>
-            Pagina siguiente
-            </Button>
-        </>
-    )
+                    <option value="20">20</option> */}
+        </Select>
+        {tareas
+          .slice((pagActual - 1) * cantidadTareas, cantidadTareas * pagActual)
+          .map((item, index) => {
+            return (
+              <Tarjeta
+                key={index}
+                titulo={item.title}
+                estado={item.completed ? "Completado" : "Incompleto"}
+              ></Tarjeta>
+            );
+          })}
+      </FormControl>
+      <div style={{flexDirection:"row", margin:"1em"}}>
+        <Stack>
+            <Pagination count={200/cantidadTareas} page={pagActual} rowsPerPage={cantidadTareas} onChange={handleChange} variant="outlined" shape="rounded"  />
+         </Stack>
+      </div>
+    </div>
+  );
 }
