@@ -9,12 +9,16 @@ import {
 import  Home  from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import  Contact  from './pages/Contact.jsx'
-import Menu from './components/Menu.jsx'
+import LoginProvider, { LoginContext } from './contexts/LoginProvider.jsx';
 
 
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <Login /> ,
+  },
+  {
+    path: "/home",
     element: <Home /> ,
   },
   {
@@ -28,8 +32,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <Menu></Menu>
+  <LoginProvider>
     <RouterProvider router={router} />
-  </React.StrictMode>,
+  </LoginProvider>,
 )
