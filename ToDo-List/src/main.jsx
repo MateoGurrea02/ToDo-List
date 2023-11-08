@@ -32,6 +32,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+
   <LoginProvider>
     <RouterProvider router={router} />
   </LoginProvider>,
