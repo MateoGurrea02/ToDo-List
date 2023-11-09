@@ -5,9 +5,9 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+import Typography from "@mui/material/Typography";
 
-
-export default function Lista_todo() {
+export default function Lista_todo({ tema }) {
   const [tareas, setTareas] = useState([]);
   const [cantidadTareas, setCantidadTareas] = useState(5); //por defecto, la lista muestra 5 tareas
   const [pagActual, setPagActual] = useState(1);
@@ -16,7 +16,7 @@ export default function Lista_todo() {
   const url = "https://jsonplaceholder.typicode.com/todos";
   const [page, setPage] = React.useState(1);
   const handleChange = (event, value) => {
-    setPagActual(value)
+    setPagActual(value);
   };
 
   useEffect(() => {
@@ -42,13 +42,15 @@ export default function Lista_todo() {
 
   return (
     <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        backgroundColor: tema ? "white" : "black",
+      }}
     >
       {cargando && <Skeleton animation="wave" />}
-      <h1 style={{margin:"1em"}}>
-        Tareas
-      </h1>
-      <FormControl>
+      <FormControl style={{marginTop:"4%"}}>
         <InputLabel id="demo-controlled-open-select-label">
           Nro. Tareas
         </InputLabel>
@@ -68,11 +70,6 @@ export default function Lista_todo() {
           <MenuItem value={"10"}>10</MenuItem>
           <MenuItem value={"15"}>15</MenuItem>
           <MenuItem value={"20"}>20</MenuItem>
-          {/* <option value="" disabled selected>Seleccione la cantidad de tareas</option>
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="15">15</option>
-                    <option value="20">20</option> */}
         </Select>
         {tareas
           .slice((pagActual - 1) * cantidadTareas, cantidadTareas * pagActual)
@@ -86,11 +83,16 @@ export default function Lista_todo() {
             );
           })}
       </FormControl>
-      <div style={{flexDirection:"row", margin:"1em"}}>
-        <Stack>
-            <Pagination count={Math.round(200/cantidadTareas)} page={pagActual} rowsPerPage={cantidadTareas} onChange={handleChange} variant="outlined" shape="rounded"  />
-         </Stack>
-      </div>
+      <Stack style={{margin:"5.5%"}}>
+        <Pagination
+          count={Math.round(200 / cantidadTareas)}
+          page={pagActual}
+          rowsPerPage={cantidadTareas}
+          onChange={handleChange}
+          variant="outlined"
+          shape="rounded"
+        />
+      </Stack>
     </div>
   );
 }

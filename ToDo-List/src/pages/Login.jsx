@@ -18,14 +18,16 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import Copyright from "../components/Copyright"
+import { ThemeContext } from "../contexts/ThemeProvider";
 
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
-const defaultTheme = createTheme();
+
 
 export default function SignIn() {
   const [datosUsuario, setDatosUsuario] = useContext(LoginContext);
+  const [lightTheme, setLightTheme] = useContext(ThemeContext)
   const navegacion = useNavigate();
   const [open, setOpen] = React.useState(false);
 
@@ -35,6 +37,12 @@ export default function SignIn() {
       contraseña: "",
     });
   }, []);
+
+  const darkTheme = createTheme({
+    palette: {
+      mode: lightTheme ? 'light':'dark',
+    },
+  });
 
   {if (
     datosUsuario.nombre === "usuario" &&
@@ -66,7 +74,7 @@ export default function SignIn() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={darkTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

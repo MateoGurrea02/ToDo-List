@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { LoginContext } from "../contexts/LoginProvider";
 import { ThemeContext } from "../contexts/ThemeProvider";
 import { useNavigate } from "react-router-dom";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 export default function Contact() {
     const [datosUsuario, setDatosUsuario] = useContext(LoginContext)
@@ -17,10 +18,17 @@ export default function Contact() {
         }
     }, [])
 
+    const darkTheme = createTheme({
+        palette: {
+          mode: lightTheme ? 'light':'dark',
+        },
+    });
     return(
         <>
-            <Menu /> 
-            <Contacto />
+            <ThemeProvider theme={darkTheme}>
+                <Menu />
+                <Contacto />
+            </ThemeProvider>
         </>
     )
 }
