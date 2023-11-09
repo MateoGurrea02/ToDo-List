@@ -17,7 +17,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { LoginContext } from '../contexts/LoginProvider';
 import { Switch } from '@mui/material';
-import { ThemeContext } from '../contexts/ThemeProvider';
+
 
 const pages = ["Home", "Login", "Contact"];
 const urlPages = ['/home', '/login', '/contact']
@@ -25,7 +25,6 @@ const settings = ["Logout"];
 
 function ResponsiveAppBar() {
   const [datosUsuario, setDatosUsuario] = useContext(LoginContext)
-  const [lightTheme, setLightTheme] = useContext(ThemeContext)
   const navegacion = useNavigate()
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -45,6 +44,7 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+
   const logOut = () => {
     setDatosUsuario({
       nombre: "",
@@ -54,9 +54,9 @@ function ResponsiveAppBar() {
   }
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
+    <AppBar position="static" >
+      <Container maxWidth="xl" >
+        <Toolbar disableGutters >
           <Typography
             variant="h6"
             noWrap
@@ -105,9 +105,9 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page, index) => (
-                <Link to={urlPages[index]} key={index}>
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
+                <Link to={urlPages[index]} key={index} >
+                  <MenuItem onClick={handleCloseNavMenu} >
+                    <Typography textAlign="center" >{page}</Typography>
                   </MenuItem>
                 </Link>
               ))}
@@ -178,7 +178,7 @@ function ResponsiveAppBar() {
               </MenuItem>
             </Menu>
           </Box>
-          <Switch onClick={() => setLightTheme(!lightTheme)} />
+          <Switch  />
         </Toolbar>
       </Container>
     </AppBar>

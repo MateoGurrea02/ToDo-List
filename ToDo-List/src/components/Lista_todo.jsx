@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Pagination, Button, Skeleton, Stack } from "@mui/material";
+import { Pagination, Skeleton, Stack } from "@mui/material";
 import Tarjeta from "./Tarjeta";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+
 
 
 export default function Lista_todo() {
@@ -14,7 +15,6 @@ export default function Lista_todo() {
   const [cargando, setCargando] = useState(true);
   const [open, setOpen] = React.useState(false);
   const url = "https://jsonplaceholder.typicode.com/todos";
-  const [page, setPage] = React.useState(1);
   const handleChange = (event, value) => {
     setPagActual(value)
   };
@@ -42,7 +42,7 @@ export default function Lista_todo() {
 
   return (
     <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }} 
     >
       {cargando && <Skeleton animation="wave" />}
       <h1 style={{margin:"1em"}}>
@@ -60,6 +60,7 @@ export default function Lista_todo() {
           onOpen={handleOpen}
           label="Nro. Tareas"
           onChange={handleSelect}
+          
         >
           <MenuItem value="">
             <em>Seleccione la cantidad de tareas</em>
@@ -82,7 +83,7 @@ export default function Lista_todo() {
                 key={index}
                 titulo={item.title}
                 estado={item.completed ? "Completado" : "Incompleto"}
-              ></Tarjeta>
+               />
             );
           })}
       </FormControl>

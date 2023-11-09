@@ -4,7 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { motion } from "framer-motion";
 
-export default function BasicCard({ titulo, estado }) {
+export default function BasicCard({ titulo, estado, clase }) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.5 }}
@@ -15,6 +15,7 @@ export default function BasicCard({ titulo, estado }) {
         sx={{ minWidth: 800 }}
         variant="outlined"
         style={{ margin: "0.2em" }}
+        className={clase}
       >
         <CardContent>
           <Typography variant="h6" component="div">
